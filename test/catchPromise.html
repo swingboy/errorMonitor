@@ -1,0 +1,42 @@
+<html>
+<head></head>
+<body></body>
+</html>
+<script>
+window.addEventListener('error', error => {
+    debugger;
+    console.log('error 监听',error); // 不会触发,这里不会
+});
+
+window.addEventListener('unhandledrejection', event => {
+    debugger;
+    console.log(event.reason); // 打印"啦啦啦啦 reject"
+});
+window.addEventListener('rejectionhandled', event => {
+    debugger;
+    console.log('rejection handled');
+});
+function foo() {
+    return Promise.reject('啦啦啦啦 reject');
+}
+var r = foo();
+
+setTimeout(() => {
+    r.catch(e => { });
+}, 1000);
+
+    
+    //
+    // try {
+    //     console.log(1);
+    //     setTimeout(function () {
+    //         console.log(2);
+    //         JSON.parse('{{}');
+    //     }, 1000);
+    //     console.log(3);
+    // } catch (err) {
+    //     console.log('55');// catch 不到的
+    // }
+    // console.log(4);
+
+</script>

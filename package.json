@@ -1,0 +1,23 @@
+{
+  "name": "errormonitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run example & npm run server",
+    "example": "node ./example/server.js",
+    "server": "node ./monitor/index.js",
+    "testS": "node ./test/findTarget.js",
+    "testFile": "node ./test/testFile.js"
+  },
+  "keywords": [],
+  "author": "test",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "kcors": "^1.3.2",
+    "koa": "^1.2.5",
+    "koa-static": "^2.1.0",
+    "source-map": "^0.5.6"
+  }
+}

@@ -1,0 +1,36 @@
+<html>
+
+<head></head>
+<script>
+        // window.addEventListener("error", function(e){
+        //     console.log(e.bubbles) // 回显false
+        // }, true);
+
+        window.addEventListener("error", function(e){
+            debugger;
+            console.log(e.bubbles)
+        },   true);
+        
+        //
+        setTimeout(function(){ throw Error("oh no!") }, 0);
+    
+    </script>
+
+<body>
+    <img src="404.jpg"/>
+</body>
+
+</html>
+<script>
+    // new Promise(function (resolve, reject) {
+    //     setTimeout(reject, 0)
+    // }).catch(function (e) {
+    //     console.log("catch")
+    //     return "bingo"
+    // }).then(function (x) {
+    //     console.log(x);
+    // })
+
+
+</script>
+

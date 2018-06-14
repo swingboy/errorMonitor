@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+    // 1.当前代码块将作为一个任务压入任务队列中，JavaScript线程会不断地从任务队列中提取任务执行；
+    // 2.当任务执行过程中报异常，且异常没有捕获处理，则会一路沿着调用栈从顶到底抛出，最终终止当前任务的执行；
+    // 3.JavaScript线程会继续从任务队列中提取下一个任务继续执行。
+    function a(){
+        throw Error("test");
+    }
+    function b(){
+        a()
+    }
+
+    setTimeout(() => {
+        b();
+        console.log("永远不会执行！");
+    }, 0);
+
+
+    setTimeout(() => {
+        console.log("你有你抛异常，我照样执行！");
+    }, 0);
+  </script>
+  <script>
+    // 下一个任务
+    // console.log("你有你抛异常，我照样执行！");
+  </script>
