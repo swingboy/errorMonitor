@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test error page</title>
+</head>
+<body>
+<h1>test error page <h1>
+<script>
+    function report(paramObj, level) {
+        let reportUrl = "http://localhost:8055/report";
+        let paramArray = [], paramString = '';
+        for(let key in paramObj){
+            paramArray.push(key + '=' + encodeURIComponent(paramObj[key]));
+        }
+        reportUrl += (reportUrl.indexOf('?') > -1 ? '&' : '?') + paramArray.join('&');
+        new Image().src = reportUrl;
+    }
+
+    window.addEventListener('error', function (e) {
+        report({
+            msg: e.message,
+            url: e.filename,
+            row: e.lineno,
+            col: e.colno,
+        });
+    });
+</script>
+<script src="http://127.0.0.1:8077/main.min.js" crossorigin></script>
+</body>
+</html>

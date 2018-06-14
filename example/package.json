@@ -1,0 +1,18 @@
+{
+  "name": "example",
+  "version": "1.0.1",
+  "description": "example",
+  "main": "server.js",
+  "scripts": {
+    "dist": "webpack"
+  },
+  "author": "test",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.2.4",
+    "webpack": "2.4.1",
+    "webpack-uglify-parallel": "^0.1.3"
+  }
+}
