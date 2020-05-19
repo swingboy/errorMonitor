@@ -7,13 +7,10 @@
         // }, true);
 
         window.addEventListener("error", function(e){
-            debugger;
-            console.log(e.bubbles)
-        },   true);
-        
+            console.log('error:' ,e.bubbles, e)
+        },  true);
         //
         setTimeout(function(){ throw Error("oh no!") }, 0);
-    
     </script>
 
 <body>

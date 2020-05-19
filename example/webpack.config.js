@@ -17,16 +17,16 @@ module.exports = {
     ]
   },
   plugins: [
-    new UglifyJsParallelPlugin({
-        workers: os.cpus().length, 
-        compress: {
-          warnings: false,
-        },
-        // output: {
-        //   semicolons: false,
-        //   beautify: true
-        // }
-    })
+    // new UglifyJsParallelPlugin({
+    //     workers: os.cpus().length, 
+    //     compress: {
+    //       warnings: false,
+    //     },
+    //     // output: {
+    //     //   semicolons: false,
+    //     //   beautify: true
+    //     // }
+    // })
   ],
   devtool: "source-map"
 };

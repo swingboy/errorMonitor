@@ -4,16 +4,13 @@
 </html>
 <script>
 window.addEventListener('error', error => {
-    debugger;
     console.log('error 监听',error); // 不会触发,这里不会
 });
 
 window.addEventListener('unhandledrejection', event => {
-    debugger;
     console.log(event.reason); // 打印"啦啦啦啦 reject"
 });
 window.addEventListener('rejectionhandled', event => {
-    debugger;
     console.log('rejection handled');
 });
 function foo() {

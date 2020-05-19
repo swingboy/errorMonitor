@@ -102,6 +102,32 @@ window.onerror = function() {
 image 和 script 标签都有此参数，它的作用就是告诉浏览器，我要加载一个外域的资源，并且我信任这个资源。
 
 
+- 还可以用try catch进行包裹
+- 当然，你可以可以对try catch 进行重写（浏览器不会去try catch起来的异常进行跨域拦截）
+
+```
+const originAddEventListener = EventTarget.prototype.addEventListener;
+EventTarget.prototype.addEventListener = (type, listener, options) => {
+  const wrappedListener = (...args) => {
+    try {
+      return listener.apply(this, args)
+    } catch (error) {
+      // 拿到error 信息统一进行处理
+      throw error
+    }
+  }
+
+  return originAddEventListener.call(this, type, wrappedListener, options)
+}
+```
+
+- 上面改写了 EventTarget 的 addEventListener 方法，对传入的 listener 进行包装，返回包装过的 listener，对其执行进行 try-catch；浏览器不会对 try-catch 起来的异常进行跨域拦截，所以 catch 到的时候，是有堆栈信息的；重新 throw 出来异常的时候，执行的是同域代码，所以 window.onerror 捕获的时候不会丢失堆栈信息；
+
+
+
+
+- 当静态资源服务器可以添加 Access-Control-Allow-Origin: * 时，我们可以直接使用window.onerror进行全局异常捕获；当静态资源服务器不受控制，window.onerror失效，我们可以借助AST技术，自动化地对全部目标Javascript函数添加try catch来捕获所有异常。
+
 ##### 关于 try..catch 的使用
 对于 try..catch 的使用，一般建议是：能不用，尽量不要用。JS代码都是自己写出来的，哪里会出现问题，会出现什么问题，心中应该都有个谱，平时用到 try..catch 的一般只有两个地方：
 
@@ -359,5 +385,3 @@ console.log(consumer.originalPositionFor({line: 1, column: 100}))
 
 
 [阮一峰JavaScript Source Map 详解](http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html)
-
-[小胡子哥](http://www.cnblogs.com/hustskyking/p/fe-monitor.html)

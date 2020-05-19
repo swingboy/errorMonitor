@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run example & npm run server",
-    "example": "node ./example/server.js",
-    "server": "node ./monitor/index.js",
-    "testS": "node ./test/findTarget.js",
-    "testFile": "node ./test/testFile.js"
+    "example": "nodemon ./example/server.js",
+    "server": "nodemon ./monitor/index.js",
+    "testS": "node ./testHtml/findTarget.js",
+    "testFile": "node ./testHtml/testFile.js"
   },
   "keywords": [],
   "author": "test",
@@ -18,6 +18,9 @@
     "kcors": "^1.3.2",
     "koa": "^1.2.5",
     "koa-static": "^2.1.0",
+    "moment": "^2.25.3",
+    "nodemon": "^2.0.4",
+    "opn": "^6.0.0",
     "source-map": "^0.5.6"
   }
 }

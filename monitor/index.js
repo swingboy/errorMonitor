@@ -8,8 +8,6 @@ var moment = require('moment');
 var opn = require('opn');
 var resolve = file => path.resolve(__dirname, file);
 
-// koa 入门
-// https://www.jianshu.com/p/d38d076b5b83
 var config = {
     port: 8055
 };
@@ -141,6 +139,7 @@ function writeLogs(w_data){
 }
 
 app.use(function *(next){
+    
     if(this.path==='/report'){
         var paramObj = this.query;
         var msg = paramObj.msg,
@@ -155,6 +154,10 @@ app.use(function *(next){
         var w_data = new Buffer(JSON.stringify(paramObj));
 
         writeLogs(w_data);
+        
+        this.body = {
+            good: 100
+        }
     }
 
     return yield next;
@@ -213,7 +216,6 @@ function writeLogsToList(){
 			if(err) {
 			} else {
                 try {
-                    debugger;
                     data = data.indexOf(',') == 0 ? data.replace(',','')  : data;
                     errlist = JSON.parse('[' + data + ']');
                 } catch (error) {
@@ -222,13 +224,13 @@ function writeLogsToList(){
 			}
 		})
 	}, function(err){
-        console.log('尚无初始化文件~~');
+        console.log(err, '尚无初始化文件')
     });
 }
 
 writeLogsToList();
 
-setTimeout(()=>{
-    opn('http://127.0.0.1:8055', {app: ['google chrome']});
-    opn('http://127.0.0.1:8066', {app: ['google chrome']});
-}, 500);
+// setTimeout(()=>{
+//     opn('http://127.0.0.1:8055', {app: ['Google Chrome']});
+//     opn('http://127.0.0.1:8066', {app: ['Google Chrome']});
+// }, 500);

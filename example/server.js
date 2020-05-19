@@ -9,14 +9,17 @@ app.listen(8066, function() {
   console.log('server: listening on port ' + 8066);
 });
 
-var cdn = new koa();
+////////////////////////////////////////////////////////////////////////////////////
 
+var cdn = new koa();
 cdn.use(function *(next){
-    var requestOrigin = this.get('Origin');
-    if (!requestOrigin) {
-      return yield next;
-    }
-    this.set('Access-Control-Allow-Origin', requestOrigin);
+    // var requestOrigin = this.get('Origin');
+    // if (!requestOrigin) {
+    //   console.log('next')
+    //   return yield next;
+    // }
+    // this.set('Access-Control-Allow-Origin', 'http://www.baidu.com');
+    // this.set('Access-Control-Allow-Origin', '*');
     this.vary('Origin');
     return yield next;
 });

@@ -5,7 +5,7 @@
     <title>test error page</title>
 </head>
 <body>
-<h1>test error page <h1>
+<h1>i am test error page in port: 8066 <h1>
 <script>
     function report(paramObj, level) {
         let reportUrl = "http://localhost:8055/report";
@@ -13,11 +13,30 @@
         for(let key in paramObj){
             paramArray.push(key + '=' + encodeURIComponent(paramObj[key]));
         }
+        
         reportUrl += (reportUrl.indexOf('?') > -1 ? '&' : '?') + paramArray.join('&');
-        new Image().src = reportUrl;
+        let newImg = new Image();
+        // newImg.crossOrigin = true; // TODO
+        newImg.src = reportUrl;
+    }
+
+    // 当点击 "click me" 按钮时，会被此拦截
+    const originAddEventListener = EventTarget.prototype.addEventListener;
+    EventTarget.prototype.addEventListener = (type, listener, options) => {
+        const wrappedListener = (...args) => {
+            try {
+            return listener.apply(this, args)
+            } catch (error) {
+            // 拿到error 信息统一进行处理
+            throw error
+            }
+        }
+
+        return originAddEventListener.call(this, type, wrappedListener, options)
     }
 
     window.addEventListener('error', function (e) {
+        console.log('e.message：', e.message)
         report({
             msg: e.message,
             url: e.filename,
@@ -26,6 +45,13 @@
         });
     });
 </script>
-<script src="http://127.0.0.1:8077/main.min.js" crossorigin></script>
+<div id="btn1000" style="width:100px;height:100px; border:1px solid red">click me </div>
+</div>
 </body>
 </html>
+<!-- <script src="http://127.0.0.1:8077/main.min.js" crossorigin></script> -->
+<!-- <script src="http://127.0.0.1:8077/main.min.js" crossorigin="anonymous"></script> --> 
+<!-- anonymous：如果使用这个值的话就会在请求中的header中的带上Origin属性，但请求不会带上cookie和其他的一些认证信息 -->
+
+
+<script src="http://127.0.0.1:8077/main.min.js"></script>
