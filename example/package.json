@@ -11,8 +11,8 @@
   "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.24.1",
-    "babel-loader": "^6.2.4",
-    "webpack": "2.4.1",
+    "babel-loader": "^9.1.0",
+    "webpack": "5.74.0",
     "webpack-uglify-parallel": "^0.1.3"
   }
 }
